@@ -20,11 +20,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Change directory to FastestMirrorFinder module
-      run: cd ./fastestMirrorFinder
-
     - name: Build
+      working-directory: ./fastestMirrorFinder
       run: go build
 
     - name: Run test and Coverage
+      working-directory: ./fastestMirrorFinder
       run: go test -v -covermode=count ./...
