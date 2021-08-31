@@ -1,0 +1,30 @@
+# This workflow will run tests for fastestMirrorFinder module
+
+name: FastestMirrorFinder Workflow
+
+on: [push, pull_request]
+
+
+jobs:
+  CI:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.16'
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Change directory to FastestMirrorFinder module
+      run: cd ./fastestMirrorFinder
+
+    - name: Build
+      run: go build
+
+    - name: Run test and Coverage
+      run: go test -v -covermode=count ./...
