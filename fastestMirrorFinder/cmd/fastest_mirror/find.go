@@ -1,6 +1,7 @@
 package fastest_mirror
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -25,9 +26,11 @@ func GetFastestServer() FastestMirror {
 	}
 
 	for _, url := range mirrorsList {
+		fmt.Println("Testing: ", url)
 		current := time.Now()
 		_, err := client.Get(url)
 		latency := time.Since(current)
+		fmt.Println("Latency: ", latency)
 
 		if err == nil && latency < result.Latency {
 			result = FastestMirror{url, latency}
