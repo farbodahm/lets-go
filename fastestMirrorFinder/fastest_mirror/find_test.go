@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/cmd/fastest_mirror"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/fastest_mirror"
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
 )
 
