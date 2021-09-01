@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/cmd/fastest_mirror"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/fastest_mirror"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
 )
 
 func main() {
-	fastest := fastest_mirror.GetFastestServer()
+	mirrorsList := mirrors.GetMirrorsList()
+	fastest := fastest_mirror.GetFastestServer(mirrorsList)
 	fmt.Println("Fastest:", fastest.Url)
 }
