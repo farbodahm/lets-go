@@ -20,9 +20,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v2.5.2
+
     - name: Build
       working-directory: ./fastestMirrorFinder
       run: go build
+
+    - name: Run go vet
+      working-directory: ./fastestMirrorFinder
+      run: go vet ./...
+
+    - name: Run go fmt
+      working-directory: ./fastestMirrorFinder
+      run: go fmt ./...
 
     - name: Run test and Coverage
       working-directory: ./fastestMirrorFinder
