@@ -5,10 +5,12 @@ import (
 	"time"
 
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/cmd/fastest_mirror"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
 )
 
 func TestFindingFastestMirror(t *testing.T) {
-	result := fastest_mirror.GetFastestServer()
+	mirrorsList := mirrors.GetMirrorsList()
+	result := fastest_mirror.GetFastestServer(mirrorsList)
 
 	if result.Latency <= time.Duration(0) ||
 		result.Latency >= time.Duration(fastest_mirror.MAX_TIME_OUT_MILISECONDS)*time.Millisecond {
