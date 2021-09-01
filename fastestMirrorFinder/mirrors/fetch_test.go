@@ -1,6 +1,10 @@
-package mirrors
+package mirrors_test
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
+)
 
 func TestGettingMirrors(t *testing.T) {
 	expected := []string{
@@ -26,7 +30,7 @@ func TestGettingMirrors(t *testing.T) {
 		"http://ftp.us.debian.org/debian",
 	}
 
-	got := GetMirrorsList()
+	got := mirrors.GetMirrorsList()
 
 	if len(got) != len(expected) {
 		t.Error(
