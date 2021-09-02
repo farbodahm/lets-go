@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/fastest_mirror"
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/fastest_mirror"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
 )
 
 func main() {

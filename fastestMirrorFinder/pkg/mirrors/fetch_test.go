@@ -3,7 +3,7 @@ package mirrors_test
 import (
 	"testing"
 
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/mirrors"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
 )
 
 func TestGettingMirrors(t *testing.T) {
