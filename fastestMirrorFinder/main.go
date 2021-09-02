@@ -1,14 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/fastest_mirror"
-	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api"
 )
 
 func main() {
-	mirrorsList := mirrors.GetMirrorsList()
-	fastest := fastest_mirror.GetFastestServer(mirrorsList)
-	fmt.Println("Fastest:", fastest.Url)
+	log.Fatal(api.RunServer("8080"))
 }
