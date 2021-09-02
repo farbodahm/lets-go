@@ -25,6 +25,10 @@ jobs:
       with:
         working-directory: ./fastestMirrorFinder
 
+    - name: Install dependencies
+      working-directory: ./fastestMirrorFinder
+      run: go mod download
+
     - name: Build
       working-directory: ./fastestMirrorFinder
       run: go build
