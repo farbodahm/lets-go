@@ -17,5 +17,7 @@ func GetFastestMirror(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(responseJson)
+	if _, err := w.Write(responseJson); err != nil {
+		log.Fatal("Error: Couldn't write to the request", err)
+	}
 }
