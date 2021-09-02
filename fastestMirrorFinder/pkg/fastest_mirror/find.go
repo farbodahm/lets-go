@@ -8,8 +8,8 @@ import (
 const MAX_TIME_OUT_MILISECONDS = 2000
 
 type FastestMirror struct {
-	Url     string
-	Latency time.Duration
+	Url     string        `json:"url"`
+	Latency time.Duration `json:"latency"`
 }
 
 func GetFastestServer(mirrorsList []string) FastestMirror {
