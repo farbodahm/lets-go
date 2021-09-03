@@ -17,7 +17,10 @@ func GetFastestMirror(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln("Error: Couldn't serialize fastest mirror:", err)
 	}
 
+	// Setting Headers
+	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
+
 	if _, err := w.Write(responseJson); err != nil {
 		log.Fatal("Error: Couldn't write to the request", err)
 	}
