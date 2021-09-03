@@ -1,6 +1,10 @@
 package api
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api/handlers"
+)
 
 type Route struct {
 	Name        string
@@ -14,6 +18,6 @@ var Routes = [...]Route{
 		"GetFastestMirror",
 		"GET",
 		"/fastest-mirror",
-		GetFastestMirror,
+		handlers.GetFastestMirror,
 	},
 }

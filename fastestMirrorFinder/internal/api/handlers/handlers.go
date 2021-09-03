@@ -1,4 +1,4 @@
-package api
+package handlers
 
 import (
 	"encoding/json"
@@ -9,6 +9,7 @@ import (
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
 )
 
+// Return fastest mirror among Debian mirrors
 func GetFastestMirror(w http.ResponseWriter, r *http.Request) {
 	fastestMirror := fastest_mirror.GetFastestServer(mirrors.GetMirrorsList())
 	responseJson, err := json.Marshal(fastestMirror)
