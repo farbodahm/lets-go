@@ -16,7 +16,7 @@ func TestGettingMirrors(t *testing.T) {
 		"http://ftp.dk.debian.org/debian", "http://ftp.sv.debian.org/debian",
 		"http://ftp.ee.debian.org/debian", "http://ftp.fr.debian.org/debian",
 		"http://ftp2.de.debian.org/debian", "http://ftp.de.debian.org/debian",
-		"http://ftp.gr.debian.org/debian", "http://ftp.hk.debian.org/debian",
+		"http://ftp.no.debian.org/debian", "http://ftp.hk.debian.org/debian",
 		"http://ftp.hu.debian.org/debian", "http://ftp.is.debian.org/debian",
 		"http://ftp.it.debian.org/debian", "http://ftp.jp.debian.org/debian",
 		"http://ftp.kr.debian.org/debian", "http://ftp.lt.debian.org/debian",
@@ -26,8 +26,8 @@ func TestGettingMirrors(t *testing.T) {
 		"http://ftp.ru.debian.org/debian", "http://ftp.sk.debian.org/debian",
 		"http://ftp.si.debian.org/debian", "http://ftp.es.debian.org/debian",
 		"http://ftp.ch.debian.org/debian", "http://ftp.tw.debian.org/debian",
-		"http://ftp.tr.debian.org/debian", "http://ftp.uk.debian.org/debian",
-		"http://ftp.us.debian.org/debian",
+		"http://ftp.tr.debian.org/debian", "http://ftp.fi.debian.org/debian",
+		"http://ftp.se.debian.org/debian",
 	}
 
 	got := mirrors.GetMirrorsList()
@@ -39,12 +39,18 @@ func TestGettingMirrors(t *testing.T) {
 		)
 	}
 
-	for i := range expected {
-		if expected[i] != got[i] {
-			t.Error(
-				"Expected", expected[i],
-				"got", got[i],
-			)
+	expectedMap := make(map[string]bool)
+	gotMap := make(map[string]bool)
+	for _, url := range expected {
+		expectedMap[url] = true
+	}
+	for _, url := range got {
+		gotMap[url] = true
+	}
+
+	for url := range gotMap {
+		if _, err := expectedMap[url]; !err {
+			t.Error("got unexpected mirror", url)
 		}
 	}
 }
