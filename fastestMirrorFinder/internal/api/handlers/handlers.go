@@ -9,7 +9,20 @@ import (
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
 )
 
-// Return fastest mirror among Debian mirrors
+// swagger:operation GET /fastest-mirror fastestMirror
+//
+// Get fastest mirror
+//
+// Find the fastest mirror among Debian mirrors
+//
+// ---
+// produces:
+// - application/json
+// responses:
+//   "200":
+//     description: Fastest mirror
+//     schema:
+//       "$ref": "#/definitions/fastestMirror"
 func GetFastestMirror(w http.ResponseWriter, r *http.Request) {
 	fastestMirror := fastest_mirror.GetFastestServer(mirrors.GetMirrorsList())
 	responseJson, err := json.Marshal(fastestMirror)

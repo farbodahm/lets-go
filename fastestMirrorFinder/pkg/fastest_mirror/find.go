@@ -7,6 +7,9 @@ import (
 
 const MAX_TIME_OUT_MILISECONDS = 2000
 
+// Response for fastestMirror.
+//
+// swagger:model fastestMirror
 type FastestMirror struct {
 	Url     string        `json:"url"`
 	Latency time.Duration `json:"latency"`
