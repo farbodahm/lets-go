@@ -1,0 +1,59 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  Duration:
+    description: |-
+      A Duration represents the elapsed time between two instants
+      as an int64 nanosecond count. The representation limits the
+      largest representable duration to approximately 290 years.
+    format: int64
+    type: integer
+    x-go-package: time
+  fastestMirror:
+    properties:
+      latency:
+        $ref: '#/definitions/Duration'
+      url:
+        type: string
+        x-go-name: Url
+    title: Response for fastestMirror.
+    type: object
+    x-go-name: FastestMirror
+    x-go-package: github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/fastest_mirror
+host: localhost:8080
+info:
+  contact:
+    email: farbodahmadian2014@gmail.com
+    name: Farbod Ahmadian
+  description: |-
+    The purpose of this application is to:
+
+    1) First scrap all mirrors from Debian site
+
+    2) Find the fastest among them
+
+    3) Present the answer using REST api
+  license:
+    name: GPL V3
+    url: https://github.com/farbodahm/lets-go/blob/main/LICENSE
+  title: Debian fastest mirror finder
+  version: 0.0.1
+paths:
+  /fastest-mirror:
+    get:
+      description: Find the fastest mirror among Debian mirrors
+      operationId: fastestMirror
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Fastest mirror
+          schema:
+            $ref: '#/definitions/fastestMirror'
+      summary: Get fastest mirror
+produces:
+- application/json
+schemes:
+- http
+swagger: "2.0"
