@@ -27,8 +27,10 @@ import (
 	"log"
 
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api/database"
 )
 
 func main() {
+	database.InitializeRedisConnection()
 	log.Fatal(api.RunServer("8080"))
 }

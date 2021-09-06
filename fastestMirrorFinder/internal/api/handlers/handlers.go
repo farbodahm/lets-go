@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api/database"
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/fastest_mirror"
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/mirrors"
 )
@@ -24,7 +25,28 @@ import (
 //     schema:
 //       "$ref": "#/definitions/fastestMirror"
 func GetFastestMirror(w http.ResponseWriter, r *http.Request) {
-	fastestMirror := fastest_mirror.GetFastestServer(mirrors.GetMirrorsList())
+	// Check to see if mirror urls already exist, if not, scrap and save to cache
+	isUrlExist, err := database.RedisClient.Exists("mirrors").Result()
+	if err != nil {
+		log.Fatal("Error: Couldn't execute query to Redis:", err)
+	}
+
+	var mirrorsList []string
+	if isUrlExist == 1 {
+		err = database.RedisClient.LRange("mirrors", 0, -1).ScanSlice(&mirrorsList)
+		if err != nil {
+			log.Fatal("Error: Couldn't get mirrors:", err)
+		}
+	} else {
+		mirrorsList = mirrors.GetMirrorsList()
+		err = database.RedisClient.RPush("mirrors", mirrorsList).Err()
+		if err != nil {
+			log.Fatal("Error: Couldn't push mirrors:", err)
+		}
+	}
+
+	// Fetch fastest mirror
+	fastestMirror := fastest_mirror.GetFastestServer(mirrorsList)
 	responseJson, err := json.Marshal(fastestMirror)
 	if err != nil {
 		log.Fatalln("Error: Couldn't serialize fastest mirror:", err)
