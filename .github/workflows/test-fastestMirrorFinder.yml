@@ -25,6 +25,10 @@ jobs:
       with:
         working-directory: ./fastestMirrorFinder
 
+    - name: Build Docker container
+      working-directory: ./fastestMirrorFinder
+      run: docker-compose up -d
+
     - name: Install dependencies
       working-directory: ./fastestMirrorFinder
       run: go mod download
@@ -43,4 +47,4 @@ jobs:
 
     - name: Run test and Coverage
       working-directory: ./fastestMirrorFinder
-      run: go test -v -covermode=count ./...
+      run: docker-compose run app go test ./...
