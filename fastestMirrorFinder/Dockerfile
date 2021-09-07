@@ -17,12 +17,11 @@ COPY . .
 # Build the application
 RUN go build -o main .
 
-# Build a small image
-FROM alpine:latest
-
-COPY --from=builder /build/main /
+# Install needed packages for running tests in container. If you don't want
+# to run test inside container, you can comment this line.
+RUN apk add go gcc
 
 EXPOSE 8080
 
 # Command to run
-ENTRYPOINT ["./main"]
+CMD ["./main"]

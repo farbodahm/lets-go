@@ -8,10 +8,14 @@ import (
 	"time"
 
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api"
+	"github.com/farbodahm/lets-go/fastestMirrorFinder/internal/api/database"
 	"github.com/farbodahm/lets-go/fastestMirrorFinder/pkg/fastest_mirror"
 )
 
 func TestGetFastestMirror(t *testing.T) {
+	// Initialize database
+	database.InitializeRedisConnection()
+
 	// Find route's url, method and handler
 	var expectedRoute api.Route
 	for _, route := range api.Routes {
