@@ -22,7 +22,12 @@ func (lexer *Lexer) NextToken() token.Token {
 
 	switch lexer.ch {
 	case '=':
-		nextToken = newToken(token.ASSIGN, lexer.ch)
+		if lexer.lookAheadChar() == '=' {
+			lexer.readChar()
+			nextToken = token.Token{Type: token.EQ, Literal: "=="}
+		} else {
+			nextToken = newToken(token.ASSIGN, lexer.ch)
+		}
 	case ';':
 		nextToken = newToken(token.SEMICOLON, lexer.ch)
 	case '(':
@@ -40,7 +45,12 @@ func (lexer *Lexer) NextToken() token.Token {
 	case '-':
 		nextToken = newToken(token.MINUS, lexer.ch)
 	case '!':
-		nextToken = newToken(token.BANG, lexer.ch)
+		if lexer.lookAheadChar() == '=' {
+			lexer.readChar()
+			nextToken = token.Token{Type: token.NOT_EQ, Literal: "!="}
+		} else {
+			nextToken = newToken(token.BANG, lexer.ch)
+		}
 	case '/':
 		nextToken = newToken(token.SLASH, lexer.ch)
 	case '*':
@@ -116,4 +126,13 @@ func (lexer *Lexer) readNumber() string {
 	}
 
 	return lexer.input[position:lexer.position]
+}
+
+// Similar to peek char. Not increamenting lexer.position
+func (lexer *Lexer) lookAheadChar() byte {
+	if lexer.readPosition >= len(lexer.input) {
+		return 0
+	} else {
+		return lexer.input[lexer.readPosition]
+	}
 }
